@@ -23,11 +23,17 @@ RUN apt-get update && \
   ttf-wqy-zenhei \
   ttf-wqy-microhei \
   xfonts-wqy \
+  # postgis and spacialite
+  postgis* libgdal-dev libgeos-dev libproj-dev sqlite3 libsqlite3-dev libspatialite-dev libsqlite3-mod-spatialite \
   # clean up
   && rm -rf /var/lib/apt/lists/*
 
 RUN npm install -g npm@latest
 RUN npm install -g yarn@latest
+
+# Install Chrome
+RUN wget https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb
+RUN dpkg -i google-chrome-stable_current_amd64.deb; apt-get -fy install
 
 # a few environment variables to make NPM installs easier
 # good colors for most applications
