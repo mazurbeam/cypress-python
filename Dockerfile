@@ -29,7 +29,6 @@ RUN apt-get update && \
   && rm -rf /var/lib/apt/lists/*
 
 RUN npm install -g npm@latest
-RUN npm install -g yarn@latest
 
 # Install Chrome
 RUN wget https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb
