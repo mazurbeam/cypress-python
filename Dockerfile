@@ -34,6 +34,9 @@ RUN npm install -g yarn@latest
 # Install Chrome
 RUN wget https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb
 RUN dpkg -i google-chrome-stable_current_amd64.deb; apt-get -fy install
+RUN ln -s /usr/lib/libgeos-3.7.1.so /usr/lib/libgeos.so
+RUN ldconfig
+
 
 # a few environment variables to make NPM installs easier
 # good colors for most applications
