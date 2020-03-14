@@ -23,6 +23,7 @@ RUN apt-get update && \
   ttf-wqy-zenhei \
   ttf-wqy-microhei \
   xfonts-wqy \
+  wget gnupg \
   # postgis and spacialite
   postgis* libgdal-dev libgeos-dev libproj-dev sqlite3 libsqlite3-dev libspatialite-dev libsqlite3-mod-spatialite \
   # clean up
@@ -38,7 +39,7 @@ RUN \
   pip install -U pip && pip install pipenv && \
   npm i -g npm@^6 && \
   rm -rf /var/lib/apt/lists/*
-  
+
 # Install Chrome
 RUN wget https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb
 RUN dpkg -i google-chrome-stable_current_amd64.deb; apt-get -fy install
