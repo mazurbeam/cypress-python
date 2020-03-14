@@ -1,4 +1,4 @@
-FROM node:12.13.0-buster-slim
+FROM python:3.7.5-slim-buster
 
 RUN apt-get update && \
   apt-get install --no-install-recommends -y \
