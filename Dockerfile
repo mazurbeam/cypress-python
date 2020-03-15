@@ -30,6 +30,7 @@ RUN apt-get update && \
   # clean up
   && rm -rf /var/lib/apt/lists/*
 
+# Install node and npm
 RUN \
   echo "deb https://deb.nodesource.com/node_12.x buster main" > /etc/apt/sources.list.d/nodesource.list && \
   wget -qO- https://deb.nodesource.com/gpgkey/nodesource.gpg.key | apt-key add - && \
@@ -43,10 +44,11 @@ RUN \
 
 # Install Chrome
 RUN wget https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb
-RUN dpkg -i google-chrome-stable_current_amd64.deb; apt-get -fy install
+RUN apt install ./google-chrome-stable_current_amd64.deb
+
+# Set up the gdal library
 RUN ln -s /usr/lib/libgeos-3.7.1.so /usr/lib/libgeos.so
 RUN ldconfig
-
 
 # a few environment variables to make NPM installs easier
 # good colors for most applications
