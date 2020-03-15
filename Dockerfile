@@ -24,6 +24,7 @@ RUN apt-get update && \
   ttf-wqy-microhei \
   xfonts-wqy \
   wget gnupg \
+  git git-lfs \
   # postgis and spacialite
   postgis* libgdal-dev libgeos-dev libproj-dev sqlite3 libsqlite3-dev libspatialite-dev libsqlite3-mod-spatialite \
   # clean up
