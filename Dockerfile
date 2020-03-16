@@ -42,9 +42,13 @@ RUN \
   npm i -g npm@^6 && \
   rm -rf /var/lib/apt/lists/*
 
-# Install Chrome
-RUN wget https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb
-RUN apt install ./google-chrome-stable_current_amd64.deb
+# Install Chromium
+RUN \
+  wget -q -O - https://dl-ssl.google.com/linux/linux_signing_key.pub | apt-key add - && \
+  echo "deb http://dl.google.com/linux/chrome/deb/ stable main" > /etc/apt/sources.list.d/google.list && \
+  apt-get update && \
+  apt-get install -y google-chrome-stable && \
+  rm -rf /var/lib/apt/lists/*
 
 # Set up the gdal library
 RUN ln -s /usr/lib/libgeos-3.7.1.so /usr/lib/libgeos.so
