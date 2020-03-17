@@ -1,4 +1,4 @@
-FROM python:3.7-buster
+FROM node:12.13.0-buster-slim
 
 RUN apt-get update && \
   apt-get install --no-install-recommends -y \
@@ -14,22 +14,24 @@ RUN apt-get update && \
   xvfb \
   wget gnupg gcc apt-utils \
   git git-lfs \
+  python3-setuptools python3.7 python3-pip build-essential libssl-dev libffi-dev python3-dev \
   # postgis and spacialite
   postgis* libgdal-dev libgeos-dev libproj-dev sqlite3 libsqlite3-dev libspatialite-dev libsqlite3-mod-spatialite \
   # clean up
   && rm -rf /var/lib/apt/lists/*
 
+RUN pip3 install -U pip && pip install pipenv
 # # Install node and npm
-RUN \
-  echo "deb https://deb.nodesource.com/node_12.x buster main" > /etc/apt/sources.list.d/nodesource.list && \
-  wget -qO- https://deb.nodesource.com/gpgkey/nodesource.gpg.key | apt-key add - && \
-  echo "deb https://dl.yarnpkg.com/debian/ stable main" > /etc/apt/sources.list.d/yarn.list && \
-  wget -qO- https://dl.yarnpkg.com/debian/pubkey.gpg | apt-key add - && \
-  apt-get update && \
-  apt-get install -yqq nodejs yarn && \
-  pip install -U pip && pip install pipenv && \
-  npm i -g npm@^6 && \
-  rm -rf /var/lib/apt/lists/*
+# RUN \
+  # echo "deb https://deb.nodesource.com/node_12.x buster main" > /etc/apt/sources.list.d/nodesource.list && \
+  # wget -qO- https://deb.nodesource.com/gpgkey/nodesource.gpg.key | apt-key add - && \
+  # echo "deb https://dl.yarnpkg.com/debian/ stable main" > /etc/apt/sources.list.d/yarn.list && \
+  # wget -qO- https://dl.yarnpkg.com/debian/pubkey.gpg | apt-key add - && \
+  # apt-get update && \
+  # apt-get install -yqq nodejs yarn && \
+  # pip install -U pip && pip install pipenv && \
+  # npm i -g npm@^6 && \
+  # rm -rf /var/lib/apt/lists/*
 
 # Install Chromium
 RUN \
@@ -56,4 +58,5 @@ RUN echo  " node version:    $(node -v) \n" \
   "npm version:     $(npm -v) \n" \
   "yarn version:    $(yarn -v) \n" \
   "debian version:  $(cat /etc/debian_version) \n" \
-  "user:            $(whoami) \n"
+  "user:            $(whoami) \n" \
+  "python:          $(python3 --version) \n" 
