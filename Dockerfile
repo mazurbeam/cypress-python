@@ -1,4 +1,4 @@
-FROM python:3.7.5-slim-buster
+FROM python:3.7-buster
 
 RUN apt-get update && \
   apt-get install --no-install-recommends -y \
@@ -12,25 +12,14 @@ RUN apt-get update && \
   libxtst6 \
   xauth \
   xvfb \
-  # install Chinese fonts
-  # this list was copied from https://github.com/jim3ma/docker-leanote
-  fonts-arphic-bkai00mp \
-  fonts-arphic-bsmi00lp \
-  fonts-arphic-gbsn00lp \
-  fonts-arphic-gkai00mp \
-  fonts-arphic-ukai \
-  fonts-arphic-uming \
-  ttf-wqy-zenhei \
-  ttf-wqy-microhei \
-  xfonts-wqy \
-  wget gnupg gcc \
+  wget gnupg gcc apt-utils \
   git git-lfs \
   # postgis and spacialite
   postgis* libgdal-dev libgeos-dev libproj-dev sqlite3 libsqlite3-dev libspatialite-dev libsqlite3-mod-spatialite \
   # clean up
   && rm -rf /var/lib/apt/lists/*
 
-# Install node and npm
+# # Install node and npm
 RUN \
   echo "deb https://deb.nodesource.com/node_12.x buster main" > /etc/apt/sources.list.d/nodesource.list && \
   wget -qO- https://deb.nodesource.com/gpgkey/nodesource.gpg.key | apt-key add - && \
@@ -44,8 +33,8 @@ RUN \
 
 # Install Chromium
 RUN \
-  wget -q -O - https://dl-ssl.google.com/linux/linux_signing_key.pub | apt-key add - && \
   echo "deb http://dl.google.com/linux/chrome/deb/ stable main" > /etc/apt/sources.list.d/google.list && \
+  wget -q -O - https://dl-ssl.google.com/linux/linux_signing_key.pub | apt-key add - && \
   apt-get update && \
   apt-get install -y google-chrome-stable && \
   rm -rf /var/lib/apt/lists/*
